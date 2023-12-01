@@ -8,13 +8,17 @@ class ExplainableChessTransformer(nn.Module):
 
     def explain_move(self, board_position, trait):
         # Generate an explanation for a move
-        # This could involve techniques like attention rollout or layer-wise relevance propagation
-        # For simplicity, let's assume it involves analyzing the transformer's attention weights
-        move, attention_weights = self.chess_transformer.get_attention_weights(board_position, trait)
-        explanation = self.generate_explanation(move, attention_weights)
-        return explanation
-
-    def generate_explanation(self, move, attention_weights):
-        # Convert attention weights and move into a human-readable explanation
-        # This will require a substantial amount of domain-specific logic
+        # This might involve analyzing attention weights or other aspects of the model's output
         pass
+    
+    # Continuing in ChessTransformer class
+    def encode_position(self, board_position):
+        # Convert board position to a format suitable for the transformer
+        # E.g., convert to FEN and then tokenize
+        pass
+
+    def decode_move(self, transformer_output):
+        # Convert transformer output to a chess move
+        # This will require parsing the output and converting it to a move
+        pass
+
