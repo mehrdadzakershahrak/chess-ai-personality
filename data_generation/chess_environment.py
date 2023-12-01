@@ -1,5 +1,7 @@
 
 import chess
+from trait_mapping import TraitMapping
+
 class ChessGame:
     def __init__(self, trait):
         self.board = chess.Board()
@@ -154,21 +156,19 @@ class ChessGame:
 
         return best_move
         
-    def simulate_game(self, player1, player2):
+    def simulate_game(self, player1_trait, player2_trait):
+        trait_mapping_player1 = TraitMapping(player1_trait)
+        trait_mapping_player2 = TraitMapping(player2_trait)
+
         while True:
             if self.board.turn:
-                if self.trait == "Aggressive":
-                    move = self.calculate_best_aggressive_move(self.board)
-                elif self.trait == "Skeptical":
-                    move = self.calculate_best_skeptical_move(self.board)
-                elif self.trait == "Cautious":
-                    move = self.calculate_best_cautious_move(self.board)
-                elif self.trait == "Innovative":
-                    move = self.calculate_best_innovative_move(self.board)
-                else:
-                    move = player1.get_move(self.board)
+                # It's player1's turn; use player1's trait strategy
+                trait_strategy = trait_mapping_player1.get_trait_strategy()
+                move = trait_strategy(self.board)
             else:
-                move = player2.get_move(self.board)
+                # It's player2's turn; use player2's trait strategy
+                trait_strategy = trait_mapping_player2.get_trait_strategy()
+                move = trait_strategy(self.board)
 
             if not self.make_move(move):
                 return "Invalid move"
